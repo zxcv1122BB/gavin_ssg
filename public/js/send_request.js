@@ -24,8 +24,8 @@ var base = {
 	// BASE_IP: 'mqd188.com/lsapi1',
 	BASE_IP: 'ssg168.net/lsapi1',
 	BASE_URL: "https://",
-	WS_URL: "ws://ssg168.net/",
-	// WS_URL: "ws://mqd188.com/",
+	WS_URL: "wss://ssg168.net/",
+	// WS_URL: "wss://mqd188.com/",
 	// 加密ajax,加token
 	websock: '',
 	userMess:[],
