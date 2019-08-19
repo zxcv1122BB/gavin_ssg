@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>代理中心</title>
+		<script src="../public/js/base.js"></script>
+	</head>
+
+	<body>
+	<script src="../public/js/header.js"></script>
+		<section id="main">
+			<div id="mainBody" class="wrapper">
+				<div id="mainContent" class="clearfix">
+					<nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li class="on">
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li v-if="agencyType!=6">
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency" v-if="agencyType==1" v-cloak>
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li>
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+					<div class="right">
+						<div id="top">
+							<div class="detail">
+								<ul>
+									<li>
+										<strong class="userName" style="color: red;">guest0000274</strong> {{i18n.t('欢迎您')}}！{{i18n.t('您有')}}
+										<span id="msgNum">
+                    <a href="message.html">[0]</a>
+                  </span>{{i18n.t('信息未读')}}
+										<span class="btn recharge">
+                    <a href="recharge.html">{{i18n.t('充值')}}</a>
+                  </span>
+										<span class="btn withdrawal"  v-if="agencyType!=6">
+                    <a href="draw.html">{{i18n.t('提款')}}</a>
+                  </span>
+									</li>
+									<li>{{i18n.t('账号余额')}}：
+										<span id="coin11" class="red">2000.00</span>{{i18n.t('元')}}
+										<a href="accountDetails.html" class="tips">[{{i18n.t('账号明细]</a>&nbsp;&nbsp;{{i18n.t('最后登录时间')}}：
+										<span id="lastTime"></span>
+									</li>
+									<li>{{i18n.t('今日彩票消费')}}：
+										<span id="zcCoin" class="red">0.00</span>{{i18n.t('元')}}
+										<a href="betrecord.html" class="tips">[{{i18n.t('彩票投注记录')}}]</a>&nbsp;&nbsp;{{i18n.t('今日彩票中奖')}}：
+										<span id="getCoin" class="red">0.00</span>{{i18n.t('元')}}
+										<a href="lotteryrecord.html" class="tips">[{{i18n.t('彩票中奖记录')}}]</a>&nbsp;&nbsp;{{i18n.t('今日彩票盈亏')}}：
+										<span id="glCoin" class="red">0.00</span>{{i18n.t('元')}}
+									</li>
+									<li>{{i18n.t('会员等级')}}：
+										<a href="#" class="tips">{{i18n.t('未分组')}}</a>
+									</li>
+								</ul>
+								<div class="showLevel">
+									<div id="level_progress_num" class="level_icon_box" style="width: 240px;">
+										<span id="level_icon_right" class="level_icon_right">
+                    <span>vip1</span>
+										</span>
+										<div class="clear"></div>
+									</div>
+									<div class="now_progress_bar">
+										<div class="level_progress_bar" style="width: 0%;">
+											<div id="level_progress_bar">
+												<div class="caibei_value">
+													<span id="level_progress_credit">0</span>
+													<span id="nextlevel_progress_credit">/100</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="need_coin">{{i18n.t('本月还需充值')}}
+										<span class="level">100.00{{i18n.t('元')}}</span>{{i18n.t('即可升级到')}}
+										<span>vip1</span>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="newLottery">
+							<div class="newLottery_title">{{i18n.t('最新投注')}}</div>
+							<table lay-even="" lay-skin="nob" width="100%" cellspacing="0" cellpadding="0" border="0" class="layui-table">
+								<thead style="text-align: center; background: rgb(226, 226, 226);">
+									<tr class="title">
+										<td>{{i18n.t('订单号')}}</td>
+										<td>{{i18n.t('投注日期')}}</td>
+										<td>{{i18n.t('彩种')}}</td>
+										<td>{{i18n.t('玩法')}}</td>
+										<td>{{i18n.t('投注金额')}}</td>
+										<td>{{i18n.t('中奖金额')}}</td>
+										<td>{{i18n.t('状态')}}</td>
+									</tr>
+								</thead>
+								<tbody id="betResultOrder" style="text-align: center;">
+									<tr>
+										<td colspan="10" height="150" class="nodate">{{i18n.t('暂无数据')}}，
+											<a href="../quizzesFootbal/jczq_hh.html">{{i18n.t('立即购彩')}}</a>
+										</td>
+									</tr>
+								</tbody>
+								<tbody id="showBetRecord" style="text-align: center; display: none;"></tbody>
+							</table>
+							<div id="fenye"></div>
+						</div>
+						<div class="pl_tips">
+							<p>
+								<i></i> 
+								{{i18n.t('温馨提示')}}：{{i18n.t('会员管理非即时统计')}}，{{i18n.t('可能有')}}5-10{{i18n.t('分钟的延迟')}}，{{i18n.t('请稍等片刻')}}。
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+
+</html>

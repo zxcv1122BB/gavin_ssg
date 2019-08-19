@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>代理报表</title>
+    <script src="../public/js/base.js"></script>
+</head>
+<body>
+	<script src="../public/js/header.js"></script>
+<div id="agentReport" class="proxy">
+    <section id="main">
+        <div id="mainBody" class="wrapper">
+            <div id="mainContent" class="clearfix">
+                <nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li v-if="agencyType!=6">
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency" v-if="agencyType==1" v-cloak>
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li>
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li class="on">
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+                <div class="right">
+                    <div class="title">{{i18n.t('代理报表')}}</div>
+                    <div id="proxy_indexPage" class="proxy_main">
+                        <div class="edit">
+                            <div id="timeType" class="newTab">
+                                <a href="javascript:;" class="curr" @click="changeType(currSearchType=1)">{{i18n.t('今天')}}</a>
+                                <a href="javascript:;" @click="changeType(currSearchType=2)">{{i18n.t('昨天')}}</a>
+                                <a href="javascript:;" @click="changeType(currSearchType='')">{{i18n.t('近七天')}}</a>
+                                <a href="javascript:;" @click="changeType(currSearchType=3)">{{i18n.t('本月')}}</a>
+                                <a href="javascript:;" @click="changeType(currSearchType=4)">{{i18n.t('上月')}}</a>
+                            </div>
+                            <div class="search">
+                                <input type="text" placeholder="下级报表查询" v-model="nextAgentName" />
+                                <a class="submitBtn ClickShade" @click="getdatas">{{i18n.t('搜索')}}</a>
+                            </div>
+                            <div class="pl_data">
+                                <ul>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.betAmount}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('投注金额')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.bonusAmount}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('中奖金额')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.betRebate }} {{coinUnit}}</em>
+                                        <span>{{i18n.t('投注返利')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.activeAmount}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('活动礼金')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.teamAgentRebate}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('团队返点')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.teamProfit}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('团队盈利')}}</span>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.betCount}} 人</em>
+                                        <span>{{i18n.t('投注人数')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.firstCashinMoneyCount}} 人</em>
+                                        <span>{{i18n.t('首充人数')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.registerUserCount}} 人</em>
+                                        <span>{{i18n.t('注册人数')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.downAgentCount}} 人</em>
+                                        <span>{{i18n.t('下级人数')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.teamBalance}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('团队余额')}}</span>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.cashinAmount}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('充值金额')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak> {{Reportdatas.cashoutAmount}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('提现余额')}}</span>
+                                    </li>
+                                    <li>
+                                        <em v-cloak>{{Reportdatas.currentAgentRebate}} {{coinUnit}}</em>
+                                        <span>{{i18n.t('代理返点')}}</span>
+                                    </li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <div class="pl_tips">
+                                <p>
+                                    <i></i>
+                                    {{i18n.t('温馨提示)}}：{{i18n.t('会员管理非即时显示)}}，{{i18n.t('可能有)}}5-10{{i18n.t('分钟的延迟)}}，{{i18n.t('请稍等片刻)}}。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</div>
+<script src="../public/js/footer.js"></script>
+<script type="text/javascript" src="js/agentReport.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>代理中心</title>
+    <script src="../public/js/base.js"></script>
+    <style>
+        .title {
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 14px;
+            padding-left: 10px;
+            color: #050505;
+            background: #fbfbfb;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 675px;
+            background: #fff;
+        }
+        .content em{
+            color: #333;
+        }
+        .content h3{
+            color: #e4393c;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 0;
+            margin-top:20px;
+        }
+        .content p{
+            color: #666;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+	<script src="../public/js/header.js"></script>
+  <div>
+<section id="main">
+    <div id="mainBody" class="wrapper">
+        <div id="mainContent" class="clearfix">
+            <nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li class="on">
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+            <div class="right">
+                <div class="title">{{i18n.t('代理说明')}}</div>
+                <div class="content">
+                    <img src="../images/agency/agentIntro.jpg" title="什么是代理?" width="100%" height="160px">
+                    <em>{{i18n.t('当您能看到这个页面')}}，{{i18n.t('说明您的账号既是玩家账号也是代理账号')}}，{{i18n.t('既可以自己投注')}}，{{i18n.t('也可以发展下级玩家')}}，{{i18n.t('赚取返点佣金')}}。</em>
+                    <h3>{{i18n.t('如何赚取返点')}}?</h3>
+                    <p>{{i18n.t('可获得的返点')}}，{{i18n.t('等于自身返点与下级返点的差值')}}，{{i18n.t('如自身返点')}}5，{{i18n.t('下级返点')}}3，{{i18n.t('你将能获得下级投注金额')}}2%{{i18n.t('的返点')}}，{{i18n.t('如下级投注')}}100{{i18n.t('元')}}，{{i18n.t('你将会获得')}}2{{i18n.t('元')}}。{{i18n.t('点击下级开户')}}，{{i18n.t('可查看自身返点')}}，{{i18n.t('也可为下级设置返点')}}。</p>
+                    <h3>{{i18n.t('如何为下级开户')}}？</h3>
+                    <p>
+                        {{i18n.t('点击下级开户')}}，{{i18n.t('先为您的下级设置返点')}}，{{i18n.t('设置成功后会生成一条邀请码')}}，{{i18n.t('将邀请码发送给您的下级注册')}}，{{i18n.t('注册后他就是您的下级')}}，{{i18n.t('点击会员管理')}}，{{i18n.t('就能查看他注册的账号')}}；
+                        <br/>
+                        {{i18n.t('如果您为下级设置的是代理类型的账号')}}，{{i18n.t('那么您的下级就能继续发展下级')}}，{{i18n.t('如果设置的是玩家类型')}}，{{i18n.t('那么您的下级只能投注')}}，{{i18n.t('不能再发展下级')}}，{{i18n.t('也看不到代理中心')}}；
+                    </p>
+                    <h3>{{i18n.t('温馨提示')}}：</h3>
+                    <p>{{i18n.t('返点不同赔率也不同')}}，{{i18n.t('点击返点赔率表')}}，{{i18n.t('可查看返点赔率')}}； <br/>
+
+                        {{i18n.t('返点越低')}}，{{i18n.t('赔率就越低')}}，{{i18n.t('建议为下级设置的返点不要过低')}}； <br/>
+
+                        {{i18n.t('可在代理报表')}}、{{i18n.t('投注明细')}}、{{i18n.t('交易明细查看代理的发展情况')}}；<br/>
+
+                        {{i18n.t('建议开设的下级也是代理类型')}}，{{i18n.t('无论发展了几级')}}，{{i18n.t('您都能获得返点')}}。 <br/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+<script src="../public/js/footer.js"></script>
+<script>
+    new Vue({
+        el: '#main'
+    })
+</script>
+</div>
+</body>
+</html>

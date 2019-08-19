@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="css/message.css"/>
+    <script type="text/javascript" src="../public/js/base.js"></script>
+</head>
+
+<body>
+<div>
+    <script src="../public/js/header.js"></script>
+    <section id="main">
+        <div class="wrapper" id="mainBody">
+            <div id="mainContent" class="clearfix">
+                <!--左边导航-->
+                <nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li v-if="agencyType!=6">
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li class="on">
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency" v-if="agencyType==1" v-cloak>
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li>
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+                <!--右边主体内容-->
+                <div class="right">
+                    <!--==================================-->
+
+                    <div class="grid fixed c21 main">
+                        <div class="mylottery_section3" style="margin: 0;">
+                            <div class="new_lottery">
+                                <div class="new_lottery_title title">
+                                    <h1>{{i18n.t('消息中心')}}</h1>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="message_tip">
+                                    <span class="on" @click="showMessage(0)" id="on_0"><a t="0"
+                                                                                          href="javascript:void(0);">{{i18n.t('全部')}}(<em
+                                            id="all_all">0</em>{{i18n.t('封')}}）</a></span> <span @click="showMessage(1)" id="on_1"><a
+                                        t="1" href="javascript:void(0);">{{i18n.t('未读')}}(<em id="all_unread">0</em>{{i18n.t('封')}}）</a></span>
+                                </div>
+                                <table class="new_lottery_tab" cellspacing="0" cellpadding="0" id="new_lottery_tab_0">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"></th>
+                                        <th>{{i18n.t('状态')}}</th>
+                                        <th>{{i18n.t('短信标题')}}</th>
+                                        <th>{{i18n.t('发布时间')}}</th>
+                                        <th>{{i18n.t('操作')}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="record_tb" v-cloak>
+                                    <tr v-if="ContentList.length==0">
+                                        <td colspan="7">{{i18n.t('暂无数据')}}</td>
+                                    </tr>
+                                    <tr v-for="(item,index) in ContentList">
+                                        <td>
+													<span class="check_span">
+														<input type="checkbox" class="deleteCheckbox"
+                                                               :value="item.id+'_'+item.readStatus"
+                                                               @click="otherDelCheckBox()">
+													</span>
+                                        </td>
+                                        <td v-if="item.readStatus==0">
+                                            <span style="color: blue;">{{i18n.t('已读')}}</span>
+                                        </td>
+                                        <td v-if="item.readStatus==1">
+                                            <span style="color: red;">{{i18n.t('未读')}}</span>
+                                        </td>
+                                        <td>
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="getMessageInfo(item.id,item.title,item.contents,item.readStatus,index)"
+                                               v-model="changeContent">{{item.title}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.sendDate}}
+                                        </td>
+                                        <td style="color:#005aa0;">
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="getMessageInfo(item.id,item.title,item.contents,item.readStatus,index)">{{i18n.t('详情')}}</a>
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="delMsg(item.id,item.readStatus)">{{i18n.t('删除')}}</a>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                <table class="new_lottery_tab" cellspacing="0" cellpadding="0" id="new_lottery_tab_1"
+                                       style="display: none;">
+                                    <thead>
+                                    <tr>
+                                        <th width="100"></th>
+                                        <th>{{i18n.t('状态')}}</th>
+                                        <th>{{i18n.t('短信标题')}}</th>
+                                        <th>{{i18n.t('发布时间')}}</th>
+                                        <th>{{i18n.t('操作')}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="record_tb" v-cloak>
+                                    <tr v-if="ContentList==0||ContentList.length==0">
+                                        <td colspan="7">{{i18n.t('暂无数据')}}</td>
+                                    </tr>
+                                    <tr v-for="(item,index) in ContentList">
+                                        <td>
+													<span class="check_span">
+														<input type="checkbox" class="deleteCheckbox"
+                                                               :value="item.id+'_'+item.readStatus"
+                                                               @click="otherDelCheckBox()">
+													</span>
+                                        </td>
+                                        <td v-if="item.readStatus==0">
+                                            <span style="color: blue;">{{i18n.t('已读')}}</span>
+                                        </td>
+                                        <td v-if="item.readStatus==1">
+                                            <span style="color: red;">{{i18n.t('未读')}}</span>
+                                        </td>
+                                        <td>
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="getMessageInfo(item.id,item.title,item.contents,item.readStatus,index)"
+                                               v-model="changeContent">{{item.title}}</a>
+                                        </td>
+                                        <td>
+                                            {{item.sendDate}}
+                                        </td>
+                                        <td style="color:#005aa0;">
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="getMessageInfo(item.id,item.title,item.contents,item.readStatus,index)">{{i18n.t('详情')}}</a>
+                                            <a href="JavaScript:void(0)" style="color:#005aa0;"
+                                               @click="delMsg(item.id,item.readStatus)">{{i18n.t('删除')}}</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="message_bot">
+                                    <div class="message_bot_btn">
+                                        <label id="allSelectType">
+												<span class="check_span">
+													<input type="checkbox" class="checkAll" @click="checkAll"
+                                                           id="checkAll">
+												</span>
+                                                {{i18n.t('全选')}}
+                                        </label>
+                                        <span class="btn" id="del_all_message" @click="delMsg()"><em></em>{{i18n.t('删除')}}</span>
+                                        <span class="btn" id="mark_read" @click="remarkRead(1)"><em></em>{{i18n.t('标记为已读')}}</span>
+                                        <!--==================================-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fenye" style="text-align: right;"></div>
+                </div>
+            </div>
+            <!--更改弹出框-->
+
+            <div class="popEdit" id="popEdit">
+                <div style="overflow-x: hidden;overflow-y: hidden;padding:20px;font-size:13px;text-align: center;">
+                    {{changeContent}}
+                </div>
+            </div>
+
+            <!--提示是否删除-->
+            <div class="popDel">
+                <div>
+                    <i class="layui-layer-ico layui-layer-ico3"></i>{{i18n.t('确定删除此信息')}}？
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../public/js/footer.js"></script>
+</div>
+
+
+<script type="text/javascript" src="../public/js/jqPaginator.js"></script>
+<script type="text/javascript" src="js/message.js"></script>
+<!--加载layui里面的表单组件-->
+<script>
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+</script>
+</body>
+
+</html>

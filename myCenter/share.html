@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分享好友</title>
+		<link rel="stylesheet" type="text/css" href="css/betrecord.css" />
+		<script type="text/javascript" src="../public/js/base.js"></script>
+		<style type="text/css">
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<script src="../public/js/header.js"></script>
+			<section id="main">
+				<div class="wrapper">
+					<div id="mainContent" class="clearfix">
+						<!--左边导航-->
+						<nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li class="on">
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li v-if="agencyType!=6">
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency" v-if="agencyType==1" v-cloak>
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li>
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+						<!--右边主体内容-->
+						<div class="right">
+							<!--顶部用户信息-->
+							<div id="top">
+								<div id="show">
+									<!--账号总览-->
+									<div class="memberMsg " style="margin-bottom:0">
+										<div class="title">
+											<strong>{{i18n.t('分享好友')}}</strong>
+										</div>
+									</div>
+									<section id="share">
+										<div class="mainList">
+											<div class="headerTit">{{i18n.t('我的推广码')}}</div>
+											<div id="aaa" class="procode"></div>
+											<div class="bshare-custom icon-medium-plus">
+												<div class="bsPromo bsPromo2"></div>
+												<a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a>
+												<a title="分享到QQ好友" class="bshare-qqim" href="javascript:void(0);"></a>
+												<a title="分享到QQ空间" class="bshare-qzone"></a>
+												<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+												<a title="分享到豆瓣" class="bshare-douban" href="javascript:void(0);"></a>
+												<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+											</div>
+											<script type="text/javascript" charset="utf-8" src="js/sharehi.js"></script>
+											<script type="text/javascript" charset="utf-8" src="js/bshareC0.js"></script>
+										</div>
+									</section>
+								</div>
+							</div>
+						</div>
+					</div>
+			</section>
+			<script src="../public/js/footer.js"></script>
+			</div>
+
+			<script type="text/javascript" src="../public/js/md5.js"></script>
+			<!--<script src="js/share.js"></script>-->
+			<script type="text/javascript">
+				if(localStorage.userType==2){
+					$(".registerFree").hide();
+				}
+				var webName;
+				var promotionCode;
+				var promotionUrl;
+				$(function() {
+					var isTrue = JSON.parse(localStorage.getItem('isTrue'));
+					promotionCode = isTrue.promotionCode;
+					if(localStorage.userType==2){
+						$('#aaa').html('该用户为试玩账号')
+					}else{
+						$('#aaa').html(promotionCode)
+						
+					}
+					var config = JSON.parse(localStorage.getItem('config'));
+					promotionUrl = config.promotionUrl;
+					if(promotionUrl != "" || promotionUrl != undefined) {
+						promotionUrl = promotionUrl.split("?")[0];
+						promotionUrl = promotionUrl + "/index.html?" + promotionCode;
+					}
+					webName = config.webName;
+					bShare.addEntry({
+						url: promotionUrl,
+						title: "欢迎来到" + webName,
+						summary: ",我的推广码是:" + promotionCode + ",我的推广链接" + promotionUrl,
+						pic: "自定义分享的图片连接地址"
+					});
+				})
+			</script>
+	</body>
+
+</html>

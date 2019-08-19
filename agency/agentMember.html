@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>会员管理</title>
+    <script src="../public/js/base.js"></script>
+</head>
+<body>
+	<script src="../public/js/header.js"></script>
+<div id="agentMember" class="proxy">
+    <section id="main">
+        <div id="mainBody" class="wrapper">
+            <div id="mainContent" class="clearfix">
+                <nav class="left">
+                        <div class="member">
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe643;</span>{{i18n.t('会员中心')}}</blockquote>
+                                <li>
+                                    <a href="/myCenter/member.html">{{i18n.t('会员中心')}}</a>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/betrecord.html">{{i18n.t('投注记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/lotteryrecord.html">{{i18n.t('中奖记录')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/accountDetails.html">{{i18n.t('账号明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/userInfo.html">{{i18n.t('账号信息')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/recharge.html">{{i18n.t('充值')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li v-if="agencyType!=6">
+                                    <a href="/myCenter/draw.html">{{i18n.t('提款')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/myCenter/message.html">{{i18n.t('消息中心')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                    
+                            </ul>
+                        </div>
+                        <div class="agency" v-if="agencyType==1" v-cloak>
+                            <ul>
+                                <blockquote class="layui-elem-quote"><span class="iconfont">&#xe65a;</span>{{i18n.t('代理中心')}}</blockquote>
+                                <li>
+                                    <a href="/agency/agentIntro.html">{{i18n.t('代理说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agentReport.html">{{i18n.t('代理报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/lowerReport.html">{{i18n.t('下级报表')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/downAccount.html">{{i18n.t('下级开户')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li class="on">
+                                    <a href="/agency/agentMember.html">{{i18n.t('会员管理')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyBetDetail.html">{{i18n.t('投注说明')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                                <li>
+                                    <a href="/agency/agencyDealDetail.html">{{i18n.t('交易明细')}}</a>
+                                    <div class="hr"></div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </nav>
+                <div class="right">
+                    <div class="title">
+                        <span>{{i18n.t('会员管理')}}</span>
+                        <ul class="navTab" v-if="userNameList.length!==0">
+                            <li v-for="(item,index) in userNameList"><em>&gt;</em> <a href="javascript:;" @click="upDataBack(item,index)" v-cloak>{{item.userName}}</a></li>
+                        </ul>
+
+                    </div>
+                    <div id="agentMem" class="proxy_main">
+                        <div class="edit">
+                            <div class="search">
+                                <span> {{i18n.t('账号)}} : </span>
+                               <input type="text" placeholder="请输入账号" v-model="lowerUserName" />
+                                &nbsp;&nbsp;&nbsp;
+                                <span>{{i18n.t('用户类型)}} : </span>
+                                <select class="userSelect" style="min-height: 30px;" v-model="userType">
+                                    <option value="">{{i18n.t('全部')}}</option>
+                                    <option value="1">{{i18n.t('代理')}}</option>
+                                    <option value="2">{{i18n.t('会员')}}</option>
+                                </select>
+                                &nbsp;&nbsp;
+                                <a href="javascript:" class="submitBtn" @click="loadMemberList" >{{i18n.t('搜索')}}</a>
+                            </div>
+                            <div class="searchDetail">
+                                <table>
+                                    <tr>
+                                        <th>{{i18n.t('账号')}}</th>
+                                        <th>{{i18n.t('用户类型')}}</th>
+                                        <th>{{i18n.t('下级人数')}}</th>
+                                        <th>{{i18n.t('余额')}}</th>
+                                        <th>{{i18n.t('最后登录')}}</th>
+                                        <th>{{i18n.t('操作')}}</th>
+                                    </tr>
+                                    <tr v-for="(item,index) in nowloadList">
+                                        <td v-cloak>{{item.userName}}</td>
+                                        <td v-cloak>{{item.showName}}</td>
+                                        <td >
+                                            <a v-if="item.regNum==0" href="javascript:;" >{{item.regNum}}</a>
+                                            <a v-if="item.regNum!==0" href="javascript:" @click="showPopover(index,0)" style="color: red;text-decoration: underline" >{{item.regNum}}</a>
+                                        </td>
+                                        <td v-cloak>{{item.amount}}</td>
+                                        <td v-cloak> {{item.lastLoginTime}}</td>
+                                        <td v-cloak ><a href="javascript:" @click="showPopover(index,1)" style="color: red;text-decoration: underline">{{i18n.t('查看返点')}}</a></td>
+                                    </tr>
+                                    <tr v-if="!nowloadList||nowloadList.length==0" v-cloak><td colspan="6">{{i18n.t('暂无数据')}}</td></tr>
+                                </table>
+                                <div id="fenye"></div>
+                                <div class="pl_tips">
+									<p>
+										<i></i> 
+										{{i18n.t('温馨提示)}}：{{i18n.t('会员管理非即时显示)}}，{{i18n.t('可能有)}}5-10{{i18n.t('分钟的延迟)}}，{{i18n.t('请稍等片刻)}}。
+									</p>
+								</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="popover">
+        <div class="agency">
+            <div class="popover">
+                <ul>
+                    <li v-for="item in itemRebateList">
+                        <span class="gameName">{{item[0]}}</span>
+                        <input class="rebate" type="button" readonly :value="item[1]">
+                    </li>
+                </ul>
+            </div>
+        </div>    
+    </div>
+    
+    
+
+</div>
+<script src="../public/js/footer.js"></script>
+<script type="text/javascript" src="../public/js/jqPaginator.js"></script>
+<script type="text/javascript" src="js/agentMember.js"></script>
+</body>
+</html>
