@@ -10,12 +10,13 @@ $(function () {
     });
 
     // 控制机选注数控制菜单的显示隐藏
-    $(".btnList").on("mouseenter",".draw_menu", function () {
-        $(this).children("ul").css({ "display": "block" })
-    });
-    $(".btnList").on("mouseleave",".draw_menu", function () {
-        $(this).children("ul").css({ "display": "none" })
-    });
+    $("body").on("mouseenter",".draw_menu",function() {
+		$(this).children("ul").css({"display": "block"});
+	});
+	$("body").on("mouseleave",".draw_menu", function() {
+			$(this).children("ul").css({"display": "none"});
+	});
+
 
     $("body").on("click", ".radio_group", function () {
         $(this).parents("li").find(".radio_group").removeClass("active");
@@ -1940,7 +1941,7 @@ this.recentBetInfo={};
                 //_this.clearSelectData(0,0);
                 //存储localstorage
                 _this.stopBanner = "";
-                _this.singleCoins = 2;
+                _this.singleCoins = '';
             }
         },
         // 统计合计和总注数信息

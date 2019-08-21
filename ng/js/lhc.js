@@ -10,12 +10,12 @@ $(function () {
     })
 
     // 控制机选注数控制菜单的显示隐藏
-    $(".btnList").on("mouseenter",".draw_menu", function () {
-        $(this).children("ul").css({ "display": "block" })
-    })
-    $(".btnList").on("mouseleave",".draw_menu", function () {
-        $(this).children("ul").css({ "display": "none" })
-    })
+    $("body").on("mouseenter",".draw_menu",function() {
+		$(this).children("ul").css({"display": "block"});
+	});
+	$("body").on("mouseleave",".draw_menu", function() {
+			$(this).children("ul").css({"display": "none"});
+	});
 
 
     $("body").on("click", ".radio_group", function () {
@@ -1738,7 +1738,7 @@ let lhc = new Vue({
                 ////存储localstorage
                 localStorage.BetsList=JSON.stringify(_this.BetsList);
                 _this.stopBanner="";
-                _this.singleCoins=2;
+                _this.singleCoins='';
                 _this.orderOdds = _this.sigleminPrize[0];
                 $("#header").hide();
             }
