@@ -428,7 +428,12 @@ var pc = new Vue({
         						_this.ordernumber = data.ordernumber;
         						_this.paymoney = data.paymoney;
         						_this.pay_url	 = data.pay_url;
-        						_this.info=data.info;
+										_this.info=data.info;
+										// 打开支付窗口
+										if(data.redirect){
+												win = window.open( 'about:blank','','scroll:1;status:0;help:0;resizable:1;dialogWidth:800px;dialogHeight:600px');          
+												win.document.write(data.redirect); 
+										}
         					}else{ 
         						_this.ordernumber = data.ordernumber;
         						_this.paymoney = data.paymoney;
