@@ -481,6 +481,7 @@ var nav = new Vue({
                         if (data.body.appDownloadPageUrl) {
                             $(".bar-l .phone").attr("href", data.body.appDownloadPageUrl);
                         }
+                        document.title = data.body.webName + ' 娱乐';
                         localStorage.setItem('config', JSON.stringify(data.body));
                     }
                 }
