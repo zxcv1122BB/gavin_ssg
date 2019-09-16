@@ -900,7 +900,7 @@ let ssc = new Vue({
                                 minList = inItem.min_prize.split('|'),
                                 val = "";
                             maxList.map(function (inItems, index) {
-                                if(_this.rebateList.rebate){
+                                if(_this.rebateList.nowRebate!=0){
                                     var val = parseFloat((inItems - minList[index]) / (_this.rebateList.rebate * 10 + 1)).toFixed(3);
                                     maxList[index] = parseFloat(inItems - val * (_this.rebateList.rebate - _this.rebateList.nowRebate) * 10).toFixed(3);
                                 }else{
@@ -909,7 +909,7 @@ let ssc = new Vue({
                             });
                             inItem.max_prize = maxList.join("|");
                         } else {
-                            if(_this.rebateList.rebate){
+                            if(_this.rebateList.nowRebate!=0){
                                 var val = parseFloat((inItem.max_prize - inItem.min_prize) / (_this.rebateList.rebate * 10 + 1)).toFixed(3);
                                 inItem.max_prize = parseFloat(inItem.max_prize - val * (_this.rebateList.rebate - _this.rebateList.nowRebate) * 10).toFixed(3);
                             }else{
